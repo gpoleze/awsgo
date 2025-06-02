@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/urfave/cli/v3"
+	"strings"
 )
 
 func PrintJson[T any](item T) {
@@ -25,13 +26,23 @@ func WithOutput[T any](
 		return err
 	}
 
+	var sortBy []table.SortBy
+	if columsToSort := command.StringSlice("sort-by"); columsToSort != nil && len(columsToSort) != 0 {
+		for _, col := range columsToSort {
+			sortBy = append(sortBy, table.SortBy{
+				Name:       strings.ToUpper(col),
+				IgnoreCase: true,
+			})
+		}
+	}
+
 	switch command.String("output") {
 	case "json":
 		PrintJson(list)
 	case "table":
-		BuildTable(list, itemToTableRow)
+		BuildTableSortedBy(list, itemToTableRow, sortBy)
 	default:
-		BuildTable(list, itemToTableRow)
+		BuildTableSortedBy(list, itemToTableRow, sortBy)
 	}
 
 	return nil

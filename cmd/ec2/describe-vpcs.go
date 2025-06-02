@@ -2,8 +2,6 @@ package ec2
 
 import (
 	"context"
-	"sort"
-
 	"github.com/aws/aws-sdk-go-v2/service/ec2"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/urfave/cli/v3"
@@ -28,6 +26,7 @@ var DescribeVpcsCmd = &cli.Command{
 		utils.RegionFlag,
 		utils.ProfileFlag,
 		utils.OutputFlag,
+		utils.SortFlag,
 	},
 	Action: func(ctx context.Context, command *cli.Command) error {
 		return utils.WithOutput(ctx, command, describeVpcs, vpcItemToTableRow)
@@ -57,8 +56,6 @@ func describeVpcs(ctx context.Context, cmd *cli.Command) ([]Vpc, error) {
 		vpcs = append(vpcs, vpc)
 		cidrs = append(cidrs, *i.CidrBlock)
 	}
-
-	sort.Sort(vpcs)
 
 	return vpcs, nil
 }

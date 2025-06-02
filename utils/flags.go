@@ -32,3 +32,8 @@ var OutputFlag = &cli.StringFlag{
 		return errors.New(fmt.Sprintf("output must be one of %v", outoutList))
 	},
 }
+
+var SortFlag = &cli.StringSliceFlag{
+	Name:  "sort-by",
+	Usage: "The formatting style for command output.",
+}

@@ -46,6 +46,7 @@ var DescribeInstancesCmd = &cli.Command{
 		utils.RegionFlag,
 		utils.ProfileFlag,
 		utils.OutputFlag,
+		utils.SortFlag,
 	},
 	Aliases:  []string{"list-vpcs"},
 	Category: "ec2",

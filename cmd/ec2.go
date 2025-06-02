@@ -6,10 +6,14 @@ import (
 )
 
 var Ec2Cmd = &cli.Command{
-	Name:  "ec2",
-	Usage: "Amazon Elastic Compute Cloud (Amazon EC2) and ",
+	Name:                  "ec2",
+	Usage:                 "Amazon Elastic Compute Cloud (Amazon EC2) and ",
+	EnableShellCompletion: true,
 	Description: `You can access the features of Amazon Elastic Compute Cloud (Amazon EC2)
 		programmatically. For more information, see the Amazon EC2
 		Developer Guide .`,
-	Commands: []*cli.Command{ec2.DescribeVpcsCmd},
+	Commands: []*cli.Command{
+		ec2.DescribeVpcsCmd,
+		ec2.DescribeInstancesCmd,
+	},
 }

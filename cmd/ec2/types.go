@@ -3,6 +3,7 @@ package ec2
 import (
 	"strconv"
 	"strings"
+	"time"
 )
 
 type Vpc struct {
@@ -66,4 +67,15 @@ func (v Vpcs) intCompare(i, j string) int {
 		return 1 // a is greater than b
 	}
 	return 0 // a is equal to b
+}
+
+type MyInstanceInfo struct {
+	Name       string
+	Id         string
+	Type       string
+	State      string
+	Ami        string
+	LaunchTime time.Time
+	PrivateIp  string
+	PublicIp   string
 }

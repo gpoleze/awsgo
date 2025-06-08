@@ -10,10 +10,11 @@ import (
 
 var AwsCommands = []*cli.Command{
 	cmd.Ec2Cmd,
+	cmd.IamCmd,
 }
 
 func main() {
-	cmd := &cli.Command{
+	command := &cli.Command{
 		Name:                  "awsgo",
 		Usage:                 "AWS cli with a more user friendly output",
 		Commands:              AwsCommands,
@@ -21,7 +22,7 @@ func main() {
 		Suggest:               true,
 	}
 
-	if err := cmd.Run(context.Background(), os.Args); err != nil {
+	if err := command.Run(context.Background(), os.Args); err != nil {
 		log.Fatal(err)
 	}
 }

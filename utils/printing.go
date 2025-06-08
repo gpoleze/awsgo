@@ -27,8 +27,8 @@ func WithOutput[T any](
 	}
 
 	var sortBy []table.SortBy
-	if columsToSort := command.StringSlice("sort-by"); columsToSort != nil && len(columsToSort) != 0 {
-		for _, col := range columsToSort {
+	if columnsToSort := command.StringSlice(SortFlag.Name); columnsToSort != nil && len(columnsToSort) != 0 {
+		for _, col := range columnsToSort {
 			sortBy = append(sortBy, table.SortBy{
 				Name:       strings.ToUpper(col),
 				IgnoreCase: true,

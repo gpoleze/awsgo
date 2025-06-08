@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"github.com/urfave/cli/v3"
-	"gitlab.com/gabriel.poleze/my-commands/awsgo/cmd/iam"
+	"gitlab.com/gabriel.poleze/awsgo/cmd/iam"
 )
 
 var IamCmd = &cli.Command{

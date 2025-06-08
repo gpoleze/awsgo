@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"github.com/urfave/cli/v3"
-	"gitlab.com/gabriel.poleze/my-commands/awsgo/cmd/ec2"
+	"gitlab.com/gabriel.poleze/awsgo/cmd/ec2"
 )
 
 var Ec2Cmd = &cli.Command{

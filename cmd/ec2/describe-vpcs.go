@@ -6,7 +6,7 @@ import (
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/urfave/cli/v3"
 
-	"gitlab.com/gabriel.poleze/my-commands/awsgo/utils"
+	"gitlab.com/gabriel.poleze/awsgo/utils"
 )
 
 var DescribeVpcsCmd = &cli.Command{

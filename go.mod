@@ -1,4 +1,4 @@
-module gitlab.com/gabriel.poleze/my-commands/awsgo
+module gitlab.com/gabriel.poleze/awsgo
 
 go 1.24.3
 

@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"github.com/urfave/cli/v3"
-	"gitlab.com/gabriel.poleze/my-commands/awsgo/cmd"
+	"gitlab.com/gabriel.poleze/awsgo/cmd"
 	"log"
 	"os"
 )

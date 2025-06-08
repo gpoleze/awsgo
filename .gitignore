@@ -1,0 +1,10 @@
+# IDE
+.idea
+*.iml
+
+# macOS
+.DS_STORE
+
+# Compiled go files
+/build
+

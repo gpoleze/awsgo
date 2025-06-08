@@ -7,7 +7,7 @@ import (
 
 var Ec2Cmd = &cli.Command{
 	Name:                  "ec2",
-	Usage:                 "Amazon Elastic Compute Cloud (Amazon EC2) and ",
+	Usage:                 "Amazon Elastic Compute Cloud (Amazon EC2)",
 	EnableShellCompletion: true,
 	Description: `You can access the features of Amazon Elastic Compute Cloud (Amazon EC2)
 		programmatically. For more information, see the Amazon EC2

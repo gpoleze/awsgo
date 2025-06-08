@@ -48,7 +48,7 @@ var DescribeInstancesCmd = &cli.Command{
 		utils.OutputFlag,
 		utils.SortFlag,
 	},
-	Aliases:  []string{"list-vpcs"},
+	Aliases:  []string{"list-instances"},
 	Category: "ec2",
 	Action: func(ctx context.Context, command *cli.Command) error {
 		return utils.WithOutput[MyInstanceInfo](ctx, command, describeInstances, ec2ItemToTableRow)

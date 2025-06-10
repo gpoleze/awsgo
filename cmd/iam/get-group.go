@@ -64,7 +64,7 @@ func GetGroup(ctx context.Context, command *cli.Command) ([]IamUser, error) {
 
 	result, err := client.GetGroup(ctx, input)
 	if err != nil {
-		fmt.Println("failed to get group users, %v", err)
+		fmt.Printf("failed to get group users, %v\n", err)
 		return nil, err
 	}
 

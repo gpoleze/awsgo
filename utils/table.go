@@ -1,10 +1,10 @@
 package utils
 
 import (
+	"github.com/iancoleman/strcase"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"os"
 	"reflect"
-	"strings"
 )
 
 type getRowFromItem[T any] func(T) table.Row
@@ -20,7 +20,8 @@ func BuildTableWithHeader[T any](params BuildTableParams[T], sortBy []table.Sort
 
 	if params.Header == nil {
 		for _, field := range reflect.VisibleFields(reflect.TypeOf(params.ListOfItems[0])) {
-			header = append(header, strings.ToUpper(field.Name))
+			fieldName := strcase.ToSnake(field.Name)
+			header = append(header, fieldName)
 		}
 	} else {
 		for _, field := range params.Header {

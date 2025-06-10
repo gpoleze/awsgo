@@ -37,3 +37,9 @@ var SortFlag = &cli.StringSliceFlag{
 	Name:  "sort-by",
 	Usage: "The formatting style for command output.",
 }
+
+var SortOrderFlag = &cli.StringFlag{
+	Name:  "order",
+	Usage: "ascending(asc) or descending(dsc)",
+	Value: "asc",
+}

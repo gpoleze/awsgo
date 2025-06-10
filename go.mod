@@ -8,6 +8,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/ec2 v1.225.0
 	github.com/aws/aws-sdk-go-v2/service/ecr v1.44.1
 	github.com/aws/aws-sdk-go-v2/service/iam v1.42.0
+	github.com/iancoleman/strcase v0.3.0
 	github.com/jedib0t/go-pretty/v6 v6.6.7
 	github.com/samber/lo v1.50.0
 	github.com/urfave/cli/v3 v3.3.3

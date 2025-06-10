@@ -11,5 +11,6 @@ var EcrCmd = &cli.Command{
 	EnableShellCompletion: true,
 	Commands: []*cli.Command{
 		ecr.DescribeRepositoriesCmd,
+		ecr.ListImagesCmd,
 	},
 }

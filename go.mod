@@ -6,8 +6,10 @@ require (
 	github.com/aws/aws-sdk-go-v2 v1.36.3
 	github.com/aws/aws-sdk-go-v2/config v1.29.14
 	github.com/aws/aws-sdk-go-v2/service/ec2 v1.224.0
+	github.com/aws/aws-sdk-go-v2/service/ecr v1.44.1
 	github.com/aws/aws-sdk-go-v2/service/iam v1.42.0
 	github.com/jedib0t/go-pretty/v6 v6.6.7
+	github.com/samber/lo v1.50.0
 	github.com/urfave/cli/v3 v3.3.3
 )
 
@@ -25,7 +27,6 @@ require (
 	github.com/aws/smithy-go v1.22.2 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
-	github.com/samber/lo v1.50.0 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
 )

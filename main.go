@@ -11,6 +11,7 @@ import (
 var AwsCommands = []*cli.Command{
 	cmd.Ec2Cmd,
 	cmd.IamCmd,
+	cmd.EcrCmd,
 }
 
 func main() {

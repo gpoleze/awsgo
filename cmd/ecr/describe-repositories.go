@@ -24,11 +24,11 @@ var DescribeRepositoriesCmd = &cli.Command{
 	Category: "ecr",
 	Action: func(ctx context.Context, command *cli.Command) error {
 		_ = utils.SortFlag.Set("Value", "REPOSITORYNAME")
-		return utils.WithOutput(ctx, command, describeRepositories, describeRepositoriesItemToTableRow)
+		return utils.WithOutput(ctx, command, DescribeRepositories, describeRepositoriesItemToTableRow)
 	},
 }
 
-func describeRepositories(ctx context.Context, command *cli.Command) ([]Repository, error) {
+func DescribeRepositories(ctx context.Context, command *cli.Command) ([]Repository, error) {
 	client, err := utils.GetClient(ctx, command, ecr.NewFromConfig)
 	if err != nil {
 		return nil, err

@@ -9,13 +9,14 @@ import (
 	"github.com/samber/lo"
 	"github.com/urfave/cli/v3"
 	"gitlab.com/gabriel.poleze/awsgo/utils"
+	"slices"
+	"strings"
 )
 
 var groupNameFlag = &cli.StringFlag{
-	Name:     "repository-name",
-	Usage:    "The repository with image IDs to be listed.",
-	Aliases:  []string{"rn"},
-	Required: true,
+	Name:    "repository-name",
+	Usage:   "The repository with image IDs to be listed.",
+	Aliases: []string{"rn"},
 }
 
 var ListImagesCmd = &cli.Command{
@@ -45,6 +46,23 @@ func listImages(ctx context.Context, command *cli.Command) ([]Image, error) {
 	}
 
 	repositoryName := command.String(groupNameFlag.Name)
+
+	if repositoryName == "" {
+		repositories, errDescRepo := DescribeRepositories(ctx, command)
+		if errDescRepo != nil {
+			return nil, errDescRepo
+		}
+		slices.SortFunc(repositories, func(a, b Repository) int {
+			return strings.Compare(b.RepositoryName, a.RepositoryName)
+		})
+		if rn, errRn := utils.SelectWithFzf(repositories, func(item Repository, _ int) string {
+			return item.RepositoryName
+		}); errRn != nil {
+			return nil, errRn
+		} else {
+			repositoryName = rn
+		}
+	}
 
 	input := &ecr.DescribeImagesInput{
 		RepositoryName: &repositoryName,

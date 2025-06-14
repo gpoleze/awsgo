@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"github.com/iancoleman/strcase"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"os"
@@ -16,6 +17,11 @@ type BuildTableParams[T any] struct {
 }
 
 func BuildTableWithHeader[T any](params BuildTableParams[T], sortBy []table.SortBy) {
+	if len(params.ListOfItems) == 0 {
+		fmt.Println("[]")
+		return
+	}
+
 	var header table.Row
 
 	if params.Header == nil {

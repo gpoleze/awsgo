@@ -14,9 +14,11 @@ type BuildTableParams[T any] struct {
 	ListOfItems       []T
 	ItemToRowFunction getRowFromItem[T]
 	Header            []string
+	SortBy            []table.SortBy
+	Title             string
 }
 
-func BuildTableWithHeader[T any](params BuildTableParams[T], sortBy []table.SortBy) {
+func BuildTable[T any](params BuildTableParams[T]) {
 	if len(params.ListOfItems) == 0 {
 		fmt.Println("[]")
 		return
@@ -44,19 +46,20 @@ func BuildTableWithHeader[T any](params BuildTableParams[T], sortBy []table.Sort
 		t.AppendRow(params.ItemToRowFunction(item))
 	}
 
-	t.SortBy(sortBy)
+	t.SortBy(params.SortBy)
+	t.SetTitle(params.Title)
 	t.Render()
 	return
 }
 
-func BuildTable[T any](listOfItems []T, ItemToRowFunction getRowFromItem[T]) {
-	params := BuildTableParams[T]{listOfItems, ItemToRowFunction, nil}
-	BuildTableWithHeader(params, nil)
-	return
-}
-
 func BuildTableSortedBy[T any](listOfItems []T, ItemToRowFunction getRowFromItem[T], sortBy []table.SortBy) {
-	params := BuildTableParams[T]{listOfItems, ItemToRowFunction, nil}
-	BuildTableWithHeader(params, sortBy)
+	params := BuildTableParams[T]{
+		listOfItems,
+		ItemToRowFunction,
+		nil,
+		sortBy,
+		reflect.TypeOf(listOfItems).Elem().Name(),
+	}
+	BuildTable(params)
 	return
 }

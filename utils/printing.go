@@ -46,7 +46,12 @@ func WithOutput[T any](
 	case "json":
 		PrintJson(list)
 	case "table":
-		BuildTableSortedBy(list, itemToTableRow, sortBy)
+		BuildTable[T](BuildTableParams[T]{list,
+			itemToTableRow,
+			nil,
+			sortBy,
+			"",
+		})
 	default:
 		BuildTableSortedBy(list, itemToTableRow, sortBy)
 	}

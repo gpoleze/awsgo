@@ -1,6 +1,7 @@
 package ec2
 
 import (
+	"github.com/aws/aws-sdk-go-v2/service/ec2/types"
 	"strconv"
 	"strings"
 	"time"
@@ -78,4 +79,23 @@ type MyInstanceInfo struct {
 	LaunchTime time.Time
 	PrivateIp  string
 	PublicIp   string
+}
+
+type Image struct {
+	Name         string
+	ImageId      string
+	ImageType    types.ImageTypeValues
+	CreationDate time.Time
+	State        types.ImageState
+}
+
+func NewImage(other types.Image) Image {
+	creationTime, _ := time.Parse("2006-01-02T15:04:05.000Z", *other.CreationDate)
+	return Image{
+		Name:         *other.Name,
+		ImageId:      *other.ImageId,
+		ImageType:    other.ImageType,
+		CreationDate: creationTime,
+		State:        other.State,
+	}
 }

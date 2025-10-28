@@ -15,5 +15,6 @@ var Ec2Cmd = &cli.Command{
 	Commands: []*cli.Command{
 		ec2.DescribeVpcsCmd,
 		ec2.DescribeImagesCmd,
+		ec2.DescribeInstancesCmd,
 	},
 }

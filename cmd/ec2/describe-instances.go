@@ -2,6 +2,7 @@ package ec2
 
 import (
 	"context"
+
 	"github.com/aws/aws-sdk-go-v2/service/ec2"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/urfave/cli/v3"
@@ -80,6 +81,7 @@ func describeInstances(ctx context.Context, command *cli.Command) ([]MyInstanceI
 				State:      string(i.State.Name),
 				Ami:        *i.ImageId,
 				LaunchTime: *i.LaunchTime,
+				PublicDNS:  *i.PublicDnsName,
 			}
 			if i.PrivateIpAddress != nil {
 				myInstance.PrivateIp = *i.PrivateIpAddress
@@ -116,5 +118,6 @@ func ec2ItemToTableRow(instance MyInstanceInfo) table.Row {
 		instance.LaunchTime,
 		instance.PrivateIp,
 		instance.PublicIp,
+		instance.PublicDNS,
 	}
 }

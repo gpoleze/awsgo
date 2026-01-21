@@ -79,6 +79,7 @@ type MyInstanceInfo struct {
 	LaunchTime time.Time
 	PrivateIp  string
 	PublicIp   string
+	PublicDNS  string
 }
 
 type Image struct {

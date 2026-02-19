@@ -3,14 +3,15 @@ package ecr
 import (
 	"context"
 	"fmt"
+	"slices"
+	"strings"
+
 	"github.com/aws/aws-sdk-go-v2/service/ecr"
 	"github.com/aws/aws-sdk-go-v2/service/ecr/types"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/samber/lo"
 	"github.com/urfave/cli/v3"
 	"gitlab.com/gabriel.poleze/awsgo/utils"
-	"slices"
-	"strings"
 )
 
 var groupNameFlag = &cli.StringFlag{
@@ -63,7 +64,6 @@ func listImages(ctx context.Context, command *cli.Command) ([]Image, error) {
 			repositoryName = rn
 		}
 	}
-
 	input := &ecr.DescribeImagesInput{
 		RepositoryName: &repositoryName,
 	}
@@ -78,6 +78,12 @@ func listImages(ctx context.Context, command *cli.Command) ([]Image, error) {
 		return NewImage(item)
 	})
 
+	repositoriesResult, err2 := client.DescribeRepositories(ctx, &ecr.DescribeRepositoriesInput{RepositoryNames: []string{repositoryName}})
+	if err2 != nil {
+		fmt.Printf("failed to get information about repository, %v\n", err)
+		return nil, err
+	}
+	fmt.Println(*repositoriesResult.Repositories[0].RepositoryUri)
 	return images, nil
 }
 

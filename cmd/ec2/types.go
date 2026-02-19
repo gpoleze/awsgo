@@ -1,10 +1,11 @@
 package ec2
 
 import (
-	"github.com/aws/aws-sdk-go-v2/service/ec2/types"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/aws/aws-sdk-go-v2/service/ec2/types"
 )
 
 type Vpc struct {
@@ -79,6 +80,7 @@ type MyInstanceInfo struct {
 	LaunchTime time.Time
 	PrivateIp  string
 	PublicIp   string
+	PublicDNS  string
 }
 
 type Image struct {

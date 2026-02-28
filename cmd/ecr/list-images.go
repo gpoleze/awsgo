@@ -64,8 +64,10 @@ func listImages(ctx context.Context, command *cli.Command) ([]Image, error) {
 			repositoryName = rn
 		}
 	}
+	var maxResults int32 = 1000
 	input := &ecr.DescribeImagesInput{
 		RepositoryName: &repositoryName,
+		MaxResults:     &maxResults,
 	}
 
 	result, err := client.DescribeImages(ctx, input)
@@ -74,7 +76,21 @@ func listImages(ctx context.Context, command *cli.Command) ([]Image, error) {
 		return nil, err
 	}
 
-	images := lo.Map(result.ImageDetails, func(item types.ImageDetail, _ int) Image {
+	imageDetails := result.ImageDetails
+	nextToken := result.NextToken
+
+	for nextToken != nil {
+		input.NextToken = nextToken
+		resultNext, errNext := client.DescribeImages(ctx, input)
+		if errNext != nil {
+			fmt.Printf("failed to list images, %v\n", errNext)
+			return nil, errNext
+		}
+		nextToken = resultNext.NextToken
+		imageDetails = append(imageDetails, resultNext.ImageDetails...)
+	}
+
+	images := lo.Map(imageDetails, func(item types.ImageDetail, _ int) Image {
 		return NewImage(item)
 	})
 

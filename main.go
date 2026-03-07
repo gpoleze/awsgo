@@ -2,10 +2,11 @@ package main
 
 import (
 	"context"
-	"github.com/urfave/cli/v3"
-	"gitlab.com/gabriel.poleze/awsgo/cmd"
 	"log"
 	"os"
+
+	"github.com/urfave/cli/v3"
+	"gitlab.com/gabriel.poleze/awsgo/cmd"
 )
 
 var AwsCommands = []*cli.Command{
@@ -13,6 +14,7 @@ var AwsCommands = []*cli.Command{
 	cmd.IamCmd,
 	cmd.EcrCmd,
 	cmd.RdsCmd,
+	cmd.SesCmd,
 }
 
 func main() {

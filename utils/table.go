@@ -2,10 +2,12 @@ package utils
 
 import (
 	"fmt"
-	"github.com/iancoleman/strcase"
-	"github.com/jedib0t/go-pretty/v6/table"
 	"os"
 	"reflect"
+
+	"github.com/iancoleman/strcase"
+	"github.com/jedib0t/go-pretty/v6/table"
+	"github.com/muesli/termenv"
 )
 
 type getRowFromItem[T any] func(T) table.Row
@@ -48,6 +50,14 @@ func BuildTable[T any](params BuildTableParams[T]) {
 
 	t.SortBy(params.SortBy)
 	t.SetTitle(params.Title)
+
+	output := termenv.NewOutput(os.Stdout)
+	if output.HasDarkBackground() {
+		t.SetStyle(table.StyleColoredCyanWhiteOnBlack)
+	} else {
+		t.SetStyle(table.StyleColoredBlackOnCyanWhite)
+	}
+
 	t.Render()
 	return
 }

@@ -1,9 +1,9 @@
 package ecr
 
 import (
-	"github.com/aws/aws-sdk-go-v2/service/ecr/types"
-	"strings"
 	"time"
+
+	"github.com/aws/aws-sdk-go-v2/service/ecr/types"
 )
 
 type Repository struct {
@@ -29,8 +29,23 @@ type Image struct {
 }
 
 func NewImage(imageDetail types.ImageDetail) Image {
+	tags := ""
+	line := 0
+	maxLine := 50
+	for _, i := range imageDetail.ImageTags {
+		if tags == "" {
+			tags = i
+			line = len(i)
+		} else if line+len(i) <= maxLine {
+			tags = tags + ", " + i
+			line = line + len(i)
+		} else {
+			tags = tags + ",\n" + i
+			line = len(i)
+		}
+	}
 	image := Image{
-		Tags:     strings.Join(imageDetail.ImageTags, ", "),
+		Tags:     tags,
 		PushedAt: *imageDetail.ImagePushedAt,
 		SizeMB:   *imageDetail.ImageSizeInBytes / 1024 / 1024,
 		Digest:   *imageDetail.ImageDigest,

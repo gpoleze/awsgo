@@ -13,7 +13,8 @@ var Ec2Cmd = &cli.Command{
 		programmatically. For more information, see the Amazon EC2
 		Developer Guide .`,
 	Commands: []*cli.Command{
-		ec2.DescribeVpcsCmd,
+		ec2.DescribeImagesCmd,
 		ec2.DescribeInstancesCmd,
+		ec2.DescribeVpcsCmd,
 	},
 }

@@ -3,8 +3,9 @@ package utils
 import (
 	"errors"
 	"fmt"
-	"github.com/urfave/cli/v3"
 	"slices"
+
+	"github.com/urfave/cli/v3"
 )
 
 var RegionFlag = &cli.StringFlag{
@@ -25,7 +26,7 @@ var OutputFlag = &cli.StringFlag{
 	Value:   "table",
 	Aliases: []string{"o"},
 	Validator: func(s string) error {
-		outoutList := []string{"table", "json"}
+		outoutList := []string{"table", "json", "clean-table"}
 		if slices.Contains(outoutList, s) {
 			return nil
 		}

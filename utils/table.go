@@ -18,6 +18,7 @@ type BuildTableParams[T any] struct {
 	Header            []string
 	SortBy            []table.SortBy
 	Title             string
+	Formatting        bool
 }
 
 func BuildTable[T any](params BuildTableParams[T]) {
@@ -51,24 +52,27 @@ func BuildTable[T any](params BuildTableParams[T]) {
 	t.SortBy(params.SortBy)
 	t.SetTitle(params.Title)
 
-	output := termenv.NewOutput(os.Stdout)
-	if output.HasDarkBackground() {
-		t.SetStyle(table.StyleColoredCyanWhiteOnBlack)
-	} else {
-		t.SetStyle(table.StyleColoredBlackOnCyanWhite)
+	if params.Formatting {
+		output := termenv.NewOutput(os.Stdout)
+		if output.HasDarkBackground() {
+			t.SetStyle(table.StyleColoredCyanWhiteOnBlack)
+		} else {
+			t.SetStyle(table.StyleColoredBlackOnCyanWhite)
+		}
 	}
 
 	t.Render()
 	return
 }
 
-func BuildTableSortedBy[T any](listOfItems []T, ItemToRowFunction getRowFromItem[T], sortBy []table.SortBy) {
+func BuildTableSortedBy[T any](listOfItems []T, ItemToRowFunction getRowFromItem[T], sortBy []table.SortBy, formatting bool) {
 	params := BuildTableParams[T]{
 		listOfItems,
 		ItemToRowFunction,
 		nil,
 		sortBy,
 		reflect.TypeOf(listOfItems).Elem().Name(),
+		formatting,
 	}
 	BuildTable(params)
 	return

@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/urfave/cli/v3"
 )
@@ -94,9 +95,18 @@ func WithOutput[T any](
 			nil,
 			sortBy,
 			"",
+			true,
+		})
+	case "clean-table":
+		BuildTable[T](BuildTableParams[T]{list,
+			itemToTableRow,
+			nil,
+			sortBy,
+			"",
+			false,
 		})
 	default:
-		BuildTableSortedBy(list, itemToTableRow, sortBy)
+		BuildTableSortedBy(list, itemToTableRow, sortBy, true)
 	}
 
 	return nil

@@ -2,14 +2,15 @@ package utils
 
 import (
 	"context"
-	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/samber/lo"
-	"github.com/urfave/cli/v3"
 	"io"
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/samber/lo"
+	"github.com/urfave/cli/v3"
 )
 
 func GetClient[T any, U any](
@@ -18,6 +19,16 @@ func GetClient[T any, U any](
 	fromConfig func(cfg aws.Config, optFns ...func(U)) T,
 ) (T, error) {
 	region := command.String("region")
+	if region == "" {
+		region = os.Getenv("AWS_REGION")
+	}
+	if region == "" {
+		region = os.Getenv("AWS_DEFAULT_REGION")
+	}
+	if region == "" {
+		region = "us-east-1"
+	}
+
 	profile := command.String("profile")
 	cfg, errCfg := config.LoadDefaultConfig(ctx, config.WithRegion(region), config.WithSharedConfigProfile(profile))
 	if errCfg != nil {
@@ -29,6 +40,9 @@ func GetClient[T any, U any](
 	return client, nil
 }
 
+// Selects an item from a list of items usins fzf
+// items []T => the list to select from
+// function func(T, int) string => a fucntion used to select the desired item
 func SelectWithFzf[T any](items []T, function func(T, int) string) (string, error) {
 	mappedItems := lo.Map(items, function)
 	data := strings.NewReader(strings.Join(mappedItems, "\n"))

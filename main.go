@@ -14,6 +14,7 @@ var AwsCommands = []*cli.Command{
 	cmd.IamCmd,
 	cmd.EcrCmd,
 	cmd.RdsCmd,
+	cmd.Route53Cmd,
 	cmd.SesCmd,
 }
 

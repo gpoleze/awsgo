@@ -52,11 +52,11 @@ var DescribeInstancesCmd = &cli.Command{
 	Aliases:  []string{"list-instances"},
 	Category: "ec2",
 	Action: func(ctx context.Context, command *cli.Command) error {
-		return utils.WithOutput[MyInstanceInfo](ctx, command, describeInstances, ec2ItemToTableRow)
+		return utils.WithOutput[MyInstanceInfo](ctx, command, DescribeInstances, ItemToTableRow)
 	},
 }
 
-func describeInstances(ctx context.Context, command *cli.Command) ([]MyInstanceInfo, error) {
+func DescribeInstances(ctx context.Context, command *cli.Command) ([]MyInstanceInfo, error) {
 
 	client, errClient := utils.GetClient(ctx, command, ec2.NewFromConfig)
 	if errClient != nil {
@@ -108,7 +108,7 @@ func describeInstances(ctx context.Context, command *cli.Command) ([]MyInstanceI
 //	return client, nil
 //}
 
-func ec2ItemToTableRow(instance MyInstanceInfo) table.Row {
+func ItemToTableRow(instance MyInstanceInfo) table.Row {
 	return table.Row{
 		instance.Name,
 		instance.Id,

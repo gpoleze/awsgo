@@ -35,8 +35,9 @@ var OutputFlag = &cli.StringFlag{
 }
 
 var SortFlag = &cli.StringSliceFlag{
-	Name:  "sort-by",
-	Usage: "The formatting style for command output.",
+	Name:    "sort-by",
+	Usage:   "The formatting style for command output.",
+	Aliases: []string{"s"},
 }
 
 var SortOrderFlag = &cli.StringFlag{

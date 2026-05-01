@@ -2,6 +2,8 @@ package route53
 
 import (
 	"context"
+	"slices"
+	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/service/route53"
 	"github.com/jedib0t/go-pretty/v6/table"
@@ -18,7 +20,7 @@ var ListHostedZonesCmd = &cli.Command{
 	},
 	Category: "route53",
 	Action: func(ctx context.Context, command *cli.Command) error {
-		return utils.WithOutput[HostedZone](ctx, command, listHostedZones, itemToTableRow)
+		return utils.WithOutput[HostedZone](ctx, command, listHostedZones, hostedZoneToTableRow)
 	},
 }
 
@@ -36,15 +38,15 @@ func listHostedZones(ctx context.Context, command *cli.Command) ([]HostedZone, e
 
 	hostedZones := make([]HostedZone, len(result.HostedZones))
 	for i, hzItem := range result.HostedZones {
-		if *hzItem.ResourceRecordSetCount == 0 {
-			continue
-		}
 		hostedZones[i] = NewHostedZone(hzItem)
 	}
+	slices.SortFunc(hostedZones, func(a, b HostedZone) int {
+		return strings.Compare(a.Name, b.Name)
+	})
 	return hostedZones, nil
 }
 
-func itemToTableRow(hz HostedZone) table.Row {
+func hostedZoneToTableRow(hz HostedZone) table.Row {
 	return table.Row{
 		hz.Id,
 		hz.Name,

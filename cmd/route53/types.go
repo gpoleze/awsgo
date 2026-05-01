@@ -25,3 +25,19 @@ func NewHostedZone(awsRoute53HostedZone awsRoute53.HostedZone) HostedZone {
 	hz.Config.PrivateZone = awsRoute53HostedZone.Config.PrivateZone
 	return hz
 }
+
+type ResourceRecord struct {
+	Name            string `json:"Name"`
+	Type            string `json:"Type"`
+	TTL             int    `json:"TTL"`
+	ResourceRecords []struct {
+		Value string `json:"Value"`
+	} `json:"ResourceRecords"`
+}
+
+func NewResourceRecord(awsRoute53ResourceRecordSet awsRoute53.ResourceRecordSet) ResourceRecord {
+	rr := ResourceRecord{}
+	rr.Name = *awsRoute53ResourceRecordSet.Name
+
+	return rr
+}

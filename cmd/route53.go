@@ -12,5 +12,6 @@ var Route53Cmd = &cli.Command{
 	EnableShellCompletion: true,
 	Commands: []*cli.Command{
 		route53.ListHostedZonesCmd,
+		route53.ListResourceRecordSetsCmd,
 	},
 }
